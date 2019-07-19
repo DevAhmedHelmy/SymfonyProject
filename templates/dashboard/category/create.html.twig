@@ -7,7 +7,7 @@
     <div class="col-md-12"> 
      
         <h1 class="page-header">
-            Products
+            Categories
             <small>Subheading</small>
         </h1>
         <ol class="breadcrumb">
@@ -15,7 +15,7 @@
                 <i class="fa fa-dashboard"></i>  <a href="{{url('home')}}">Dashboard</a>
             </li>
             <li>
-                <i class="fa fa-file"></i> <a href="{{url('product_index')}}"> Categories </a>
+                <i class="fa fa-file"></i> <a href="{{url('category_index')}}"> Categories </a>
             </li>
             <li class="active">
                 <i class="fa fa-file"></i> Create Category
@@ -33,8 +33,30 @@
 
 {% block body %}
 <div class="col-md-12">
- 
-    Create Body
+ {{ form(form, {'method': 'POST'}) }}
+    
+    {# {{ form_start(form) }}
+            {{ form_errors(form) }}
+
+            {{ form_row(form.task) }}
+            {{ form_row(form.dueDate) }}
+
+            {{ form_row(form.save, { 'label': 'Submit me' }) }}
+    {{ form_end(form) }} #}
+    {{ form_start(form) }}
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(form) }}
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(form.task) }}
+        </div>
+        <div class="col" id="some-custom-id">
+            {{ form_row(form.dueDate) }}
+        </div>
+    </div>
+{{ form_end(form) }}
 
 </div>
         
