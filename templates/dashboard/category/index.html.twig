@@ -15,7 +15,7 @@
                 <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
             </li>
             <li class="active">
-                <i class="fa fa-file"></i> Products
+                <i class="fa fa-file"></i> Categories
             </li>
         </ol>
     </div>
@@ -32,9 +32,33 @@
 <div class="col-md-12">
  
     <a class="btn btn-primary" href="{{url('product_create')}}">
-    <i class="fa fa-plus"></i> Add Product</a>
+    <i class="fa fa-plus"></i> Add Category</a>
 
 </div>
+<div class="col-md-12">
+    <h2>Categories Table</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Page</th>
+                        <th>Visits</th>
+                        <th>% New Visits</th>
+                        <th>Revenue</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>/index.html</td>
+                        <td>1265</td>
+                        <td>32.3%</td>
+                        <td>$321.33</td>
+                    </tr>
+                     
+                </tbody>
+            </table>
+        </div>
+    </div>
         
 
 {% endblock %}
