@@ -1,0 +1,21 @@
+{# to in include layouts/header #}
+{% include 'layouts/header.html.twig' %}  
+
+
+<div class="container">
+
+
+    {# to in include layouts/nav #}
+    {% include 'layouts/nav.html.twig' %}
+
+
+    {# body content #}
+    <div id="content">
+        {% block body %}{% endblock %}
+    </div>
+</div>
+
+
+
+{# to in include layouts/footer #}
+{% include 'layouts/footer.html.twig' %}

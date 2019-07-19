@@ -1,0 +1,40 @@
+{% extends 'dashboard/layouts/base.html.twig' %}
+ 
+
+
+    {# to include heading page #}
+    {% block heading %}
+    <div class="col-md-12"> 
+     
+        <h1 class="page-header">
+            Products
+            <small>Subheading</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
+            </li>
+            <li class="active">
+                <i class="fa fa-file"></i> Products
+            </li>
+        </ol>
+    </div>
+    {% endblock %}
+     
+
+
+
+
+
+{# to include body #}
+
+{% block body %}
+<div class="col-md-12">
+ 
+    <a class="btn btn-primary" href="{{url('product_create')}}">
+    <i class="fa fa-plus"></i> Add Product</a>
+
+</div>
+        
+
+{% endblock %}
