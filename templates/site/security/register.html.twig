@@ -1,0 +1,71 @@
+<!--A Design by W3layouts 
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<title>stylish Sign in and Sign up Form A Flat Responsive widget Template :: w3layouts</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="stylish Sign in and Sign up Form A Flat Responsive widget, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--online_fonts-->
+	<link href="//fonts.googleapis.com/css?family=Sansita:400,400i,700,700i,800,800i,900,900i&amp;subset=latin-ext" rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+<!--//online_fonts-->
+	<link href="/css/dashboard/style.css" rel='stylesheet' type='text/css' media="all" /><!--stylesheet-->
+</head>
+<body>
+<h1>Welcome in The Dashboard</h1>
+<div class="form-w3ls">
+	<div class="form-head-w3l">
+		<h2>s</h2>
+	</div>
+    <ul class="tab-group cl-effect-4">
+        
+		<li class="tab"><a href="#signup-agile">Sign Up</a></li> 
+		     
+    </ul>
+    <div class="tab-content">
+		<div id="signup-agile">   
+			<form method="POST" action="{{ url('app_register') }}" enctype="multipart/form-data">
+				{# the argument of csrf_token() is an arbitrary string used to generate the token #}
+ 				<input type="hidden" name="token" value="{{ csrf_token('app_register') }}"/>
+				<p class="header">User Name</p>
+				<input type="text" name="name" placeholder="Your Full Name" required="required">
+				
+				<p class="header">Email Address</p>
+				<input type="email" name="email" placeholder="Email" required="required">
+				
+				<p class="header">Password</p>
+				<input type="password" name="password" placeholder="Password" required="required">
+				
+				<p class="header">Confirm Password</p>
+				<input type="password" name="password" placeholder="Confirm Password" required="required">
+
+				<p class="header">Address</p>
+				<input type="text" name="address" placeholder="Address" required="required">
+
+				<p class="header">phone</p>
+				<input type="text" name="phone" placeholder="Phone" required="required">
+
+				<p class="header">Image</p>
+				<input type="file" name="image" required="required">
+
+				
+				
+				<input type="submit" class="register" value="Sign up">
+			</form>
+		</div> 
+    </div><!-- tab-content -->
+</div> <!-- /form -->	  
+<p class="copyright">&copy; 2018 stylish sign in and sign up Form. All Rights Reserved | Design by <a href="https://w3layouts.com/" target="_blank">w3layouts</a></p>
+<!-- js files -->
+<script src='/js/dashboard/jquery.min.js'></script>
+<script src="/js/dashboard/index.js"></script>
+<!-- /js files -->
+</body>
+</html>

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,26 +26,32 @@ class Product
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
      */
     private $description;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank
      */
     private $purchase_price;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank
      */
     private $sale_price;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
      */
     private $stock;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Upload your image")
+     * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
      */
     private $image;
 
@@ -55,14 +62,24 @@ class Product
     private $category_id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Order", inversedBy="products_order")
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductOrder", mappedBy="product_id")
      */
-    private $order_id;
+    private $productOrders;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ShoppingCardItem", inversedBy="product")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $shoppingCardItem;
 
     public function __construct()
     {
-        $this->order_id = new ArrayCollection();
+        $this->productOrders = new ArrayCollection();
     }
+
+  
+
+    
 
     public function getId(): ?int
     {
@@ -154,28 +171,51 @@ class Product
     }
 
     /**
-     * @return Collection|Order[]
+     * @return Collection|ProductOrder[]
      */
-    public function getOrderId(): Collection
+    public function getProductOrders(): Collection
     {
-        return $this->order_id;
+        return $this->productOrders;
     }
 
-    public function addOrderId(Order $orderId): self
+    public function addProductOrder(ProductOrder $productOrder): self
     {
-        if (!$this->order_id->contains($orderId)) {
-            $this->order_id[] = $orderId;
+        if (!$this->productOrders->contains($productOrder)) {
+            $this->productOrders[] = $productOrder;
+            $productOrder->setProductId($this);
         }
 
         return $this;
     }
 
-    public function removeOrderId(Order $orderId): self
+    public function removeProductOrder(ProductOrder $productOrder): self
     {
-        if ($this->order_id->contains($orderId)) {
-            $this->order_id->removeElement($orderId);
+        if ($this->productOrders->contains($productOrder)) {
+            $this->productOrders->removeElement($productOrder);
+            // set the owning side to null (unless already changed)
+            if ($productOrder->getProductId() === $this) {
+                $productOrder->setProductId(null);
+            }
         }
 
         return $this;
     }
+
+    public function getShoppingCardItem(): ?ShoppingCardItem
+    {
+        return $this->shoppingCardItem;
+    }
+
+    public function setShoppingCardItem(?ShoppingCardItem $shoppingCardItem): self
+    {
+        $this->shoppingCardItem = $shoppingCardItem;
+
+        return $this;
+    }
+
+   
+  
+    
+
+   
 }

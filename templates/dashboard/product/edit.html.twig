@@ -33,8 +33,60 @@
 
 {% block body %}
 <div class="col-md-12">
+    <div class="col-md-6 col-md-offset-3">
+         <form method="POST" action="{{url('product_update', {'id':product.id})}}">
+           {# the argument of csrf_token() is an arbitrary string used to generate the token #}
+            <input type="hidden" name="token" value="{{ csrf_token('product_update') }}"/>
+            {# to select category #}
+            <div class="form-group">
+                <label>Categories</label>
+                <select class="form-control" name="category_id">
+                    <option disabled>Select Ctagory</option>
+                    {% if categories is defined %}
+                        {% for category in categories %}
+                            <option value="{{category.id}}">{{category.name}}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Product Name</label>
+                <input class="form-control" type="text" name="name" value="{{product.name}}">
+            </div>
+
+
+            <div class="form-group">
+                <label>Product Description</label>
+                <textarea class="form-control" rows="3" name="description">{{product.description}}</textarea>
+                
+            </div>
+
+            <div class="form-group">
+                <label>Purchase Price</label>
+                <input class="form-control" type="number" step="0.5" name="purchase_price" value="{{product.getPurchasePrice()}}">
+            </div>
+
+            <div class="form-group">
+                <label>Sale Price</label>
+                <input class="form-control" type="number" step="0.5" name="sale_price" value="{{product.getSalePrice()}}">
+            </div>
+
+            <div class="form-group">
+                <label>Stock</label>
+                <input class="form-control" type="number" min="1" name="stock" value="{{product.stock}}">
+            </div>
+           <div class="form-group">
+                <label>File input</label>
+                <input type="file" name="image">
+            </div>
+            <div class="form-group">
+                 
+                <input class="btn btn-primary" type="submit" value="save">
+                 
+            </div>
  
-    Edit Body
+         </form>
+    </div>
 
 </div>
         

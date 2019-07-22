@@ -23,6 +23,8 @@ class Kernel extends BaseKernel
                 yield new $class();
             }
         }
+        // registerBundles()
+         
     }
 
     public function getProjectDir(): string

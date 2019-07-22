@@ -19,29 +19,19 @@ class Order
     private $id;
 
     /**
-     * @ORM\Column(type="float")
-     */
-    private $price;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="orders")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="orders")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $client_id;
+    private $user;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductOrder", mappedBy="order_id")
      */
-    private $quantity;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="order_id")
-     */
-    private $products_order;
+    private $productOrders;
 
     public function __construct()
     {
-        $this->products_order = new ArrayCollection();
+        $this->productOrders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -49,65 +39,44 @@ class Order
         return $this->id;
     }
 
-    public function getPrice(): ?float
+    public function getUser(): ?User
     {
-        return $this->price;
+        return $this->user;
     }
 
-    public function setPrice(float $price): self
+    public function setUser(?User $user): self
     {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    public function getClientId(): ?Client
-    {
-        return $this->client_id;
-    }
-
-    public function setClientId(?Client $client_id): self
-    {
-        $this->client_id = $client_id;
-
-        return $this;
-    }
-
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(int $quantity): self
-    {
-        $this->quantity = $quantity;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * @return Collection|Product[]
+     * @return Collection|ProductOrder[]
      */
-    public function getProductsOrder(): Collection
+    public function getProductOrders(): Collection
     {
-        return $this->products_order;
+        return $this->productOrders;
     }
 
-    public function addProductsOrder(Product $productsOrder): self
+    public function addProductOrder(ProductOrder $productOrder): self
     {
-        if (!$this->products_order->contains($productsOrder)) {
-            $this->products_order[] = $productsOrder;
-            $productsOrder->addOrderId($this);
+        if (!$this->productOrders->contains($productOrder)) {
+            $this->productOrders[] = $productOrder;
+            $productOrder->setOrderId($this);
         }
 
         return $this;
     }
 
-    public function removeProductsOrder(Product $productsOrder): self
+    public function removeProductOrder(ProductOrder $productOrder): self
     {
-        if ($this->products_order->contains($productsOrder)) {
-            $this->products_order->removeElement($productsOrder);
-            $productsOrder->removeOrderId($this);
+        if ($this->productOrders->contains($productOrder)) {
+            $this->productOrders->removeElement($productOrder);
+            // set the owning side to null (unless already changed)
+            if ($productOrder->getOrderId() === $this) {
+                $productOrder->setOrderId(null);
+            }
         }
 
         return $this;
