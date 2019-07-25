@@ -8,104 +8,24 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin</a>
+                <a class="navbar-brand" href="{{ url('home') }}">online Store Admin</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
-                <li>
-                    <a href="{{url('dash_login')}}">Login</a>
-                </li>
-                <li>
-                    <a href="{{url('dash_register')}}">Register</a>
-                </li>
+                {%if is_granted('ROLE_ADMIN')%}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url('site_home')}}">Go To Website</a>
+            </li>
+            {%endif%}
+              {% if is_granted('ROLE_ADMIN') %}
+                 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu message-dropdown">
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading">
-                                            <strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading">
-                                            <strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading">
-                                            <strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-footer">
-                            <a href="#">Read All New Messages</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu alert-dropdown">
-                        <li>
-                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">View All</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+               
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img class="nav-profile-img rounded-circle" width="30" height="30" src="/image/upload/{{app.user.image}}"></a>
+                    {# <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{app.user.getFirstName()}}<b class="caret"></b></a> #}
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                            <a href="{{url('profile',{'id':app.user.id})}}"><i class="fa fa-fw fa-user"></i> Profile</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
@@ -115,10 +35,20 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            <a href="{{url('dash_logout')}}"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                         </li>
                     </ul>
                 </li>
+
+
+                {%else%}
+<li>
+                    <a href="{{url('dash_login')}}">Login</a>
+                </li>
+                <li>
+                    <a href="{{url('dash_register')}}">Register</a>
+                </li>
+                {%endif%}
             </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -127,13 +57,22 @@
                         <a href="{{ url('home') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
+                        <a href="{{ url('view_users') }}"><i class="fa fa-fw fa-users"></i> Users</a>
+                    </li>
+                    <li>
                         <a href="{{ url('category_index') }}"><i class="fa fa-fw fa-file"></i> Categories</a>
                     </li>
                     <li>
                         <a href="{{ url('product_index') }}"><i class="fa fa-fw fa-file"></i> Products</a>
                     </li>
+
+                    <li>
+                        <a href="{{ url('show_order') }}"><i class="fa fa-fw fa-file"></i> Orders</a>
+                    </li>
+
                      
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </nav>
+        

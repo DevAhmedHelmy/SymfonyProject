@@ -1,0 +1,98 @@
+
+{% extends 'dashboard/layouts/base.html.twig' %}
+ 
+
+
+    {# to include heading page #}
+    {% block heading %}
+    <div class="col-md-12"> 
+     
+        <h1 class="page-header">
+            Users
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-dashboard"></i>  <a href="{{url('home')}}">Dashboard</a>
+            </li>
+            <li class="active">
+                <i class="fa fa-users"></i> <a href="{{url('view_users')}}">Users</a> 
+            </li>
+
+            <li class="active">
+                <i class="fa fa-user"></i> Edit Users
+            </li>
+        </ol>
+    </div>
+    {% endblock %}
+
+    {# to include body #}
+
+{% block body %}
+
+
+<div class="row">
+
+<div class="col-md-8 col-md-offset-2"> 
+ 
+<h1>Edit User</h1>
+</div>
+ 
+
+</div>
+
+<div class="row">
+
+ 
+<div class="col-md-8 col-md-offset-2"> 
+{%if user is defined%}
+        <form method="POST" action="{{url('acount_update',{'id':user.getId})}}">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <input type="text" name="name" class="form-control" id="exampleInputEmail1" value="{{user.getFirstName()}}">
+       
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" name="email" class="form-control" id="exampleInputEmail1" value="{{user.getUsername()}}">
+       
+        </div>
+        
+        
+        <div class="form-group">
+            <label for="exampleInputEmail1">New Password</label>
+            <input type="password" class="form-control" name="new_password" placeholder="Password">
+       
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Confirm New Password</label>
+            <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password">
+       
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Address</label>
+            <input type="text" name="address" class="form-control" id="exampleInputEmail1" value="{{user.getAddress()}}">
+       
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Phone</label>
+            <input type="text" name="phone" class="form-control" id="exampleInputEmail1" value="{{user.getPhone()}}">
+       
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Phone</label>
+            <input type="file" name="image" class="form-control">
+       
+        </div>
+       
+				
+         
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+{%endif%}
+ 
+</div>
+</div>
+{% endblock %}

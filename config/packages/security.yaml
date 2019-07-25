@@ -28,6 +28,8 @@ security:
                 authenticators:
                     
                    - App\Security\LoginFormAuthenticator
+                   - App\Security\LoginFormDashboardAuthenticator
+                entry_point: App\Security\LoginFormDashboardAuthenticator
             
             
                 # where to redirect after logout
@@ -44,4 +46,4 @@ security:
     access_control:
         #  - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
           
-        # - { path: ^/home, roles: ROLE_ADMIN }
+        - { path: ^/home, roles: ROLE_ADMIN }

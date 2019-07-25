@@ -1,6 +1,6 @@
 <?php
 // src/Controller/LuckyController.php
-namespace App\Controller\Dashboard;
+namespace App\Controller\Site;
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,30 +13,21 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  */
 class UserController extends AbstractController
 {
-    /**
-     *
-     * @Route("/users", name="view_users")
-    */
-    public function index()
-    {
-        $users = $this->getDoctrine()->getRepository(User::class)->findAll();
-    
-        return $this->render('/dashboard/user/index.html.twig',['users' => $users]);
-    }
+   
 /**
-     * @Route("/profile/{id}", name="profile")
+     * @Route("/acount/{id}", name="acount")
      */
     public function profile($id)
     {
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
-        return $this->render('dashboard/user/profile.html.twig',['user'=>$user]);
+        return $this->render('site/acount/profile.html.twig',['user'=>$user]);
     }
 
 
 // function to get data in edit page to update this data
     /**
      *
-     * @Route("/user/edit/{id}", name="user_edit")
+     * @Route("/acount/edit/{id}", name="acount_edit")
      * 
     */
     public function edit($id)
@@ -50,7 +41,7 @@ class UserController extends AbstractController
     // function to update data
     /**
      *
-     * @Route("/user/update/{id}", name="user_update")
+     * @Route("/acount/update/{id}", name="acount_update")
      *  
     */
     public function update(Request $request,$id)
@@ -88,26 +79,13 @@ class UserController extends AbstractController
         $em->flush($user);
         
         // to redirectToRoute 
-        return $this->redirectToRoute('view_users');
+        return $this->redirectToRoute('site_home');
      
     }
 
 
 
-    // function to delee data from database
-    /**
-     *
-     * @Route("/user/delete/{id}", name="user_delete")
-    */
-    public function destroy(Request $request, EntityManagerInterface $em, $id)
-    {
-        $repository = $this->getDoctrine()->getRepository(User::class);
-        $user = $repository->find($id);
-        $em->remove($user);
-        $em->flush();
-        return $this->redirectToRoute('view_users');
-     
-    }
+   
     
     
 }

@@ -26,19 +26,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	</div>
     <ul class="tab-group cl-effect-4">
         <li class="tab active"><a href="#signin-agile">Sign In</a></li>
+		<li><a href="{{ url('dash_register') }}">Sign Up</a></li>
 		    
     </ul>
     <div class="tab-content">
         <div id="signin-agile">   
-
+			{%if error is defined%}
 		    {% if error %}
 				<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-			{% endif %}  
+			{% endif %}
+			{%endif%}  
 			<form action="{{ path('dash_login') }}" method="POST">
-				{# the argument of csrf_token() is an arbitrary string used to generate the token #}
- 				<input type="hidden" name="csrf_token" value="{{ csrf_token('authenticate') }}"/>
-				<p class="header">User Name</p>
-				<input type="text" name="user" placeholder="User Name" required="required">
+				
+				<p class="header">Email</p>
+				<input type="email" name="email" placeholder="Email" required="required">
 				
 				<p class="header">Password</p>
 				<input type="password" name="password" placeholder="Password" required="required">
@@ -47,6 +48,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<label for="brand"><span></span> Remember me?</label>
 				
 				<input type="submit" class="sign-in" value="Sign In">
+				{# the argument of csrf_token() is an arbitrary string used to generate the token #}
+ 				<input type="hidden" name="csrf_token" value="{{ csrf_token('authenticate') }}"/>
 			</form>
 		</div>
 		

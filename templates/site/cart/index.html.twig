@@ -13,79 +13,82 @@
         <div class="col-12">
             <div class="table-responsive">
                 <table class="table table-striped">
+                {% if cart_data is defined%}
                     <thead>
                         <tr>
                             
                             <th scope="col">Product</th>
-                            <th scope="col">Available</th>
-                            <th scope="col" class="text-center">Quantity</th>
-                            <th scope="col" class="text-right">Price</th>
-                            <th>Remove </th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Product Price</th>
+                             
+                            <th scope="col">Update</th>
+                            <th>Rmove </th>
                         </tr>
                     </thead>
-                    <tbody class="">
-                        {# <tr>
-                            <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                            <td>Product Name Dada</td>
-                            <td>In stock</td>
-                            <td><input class="form-control" type="text" value="1" /></td>
-                            <td class="text-right">124,90 €</td>
-                            <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
-                        </tr>
+                    <tbody>
+                     
+                        {% for product in products %}
+
+
                         <tr>
                             <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                            <td>Product Name Toto</td>
-                            <td>In stock</td>
-                            <td><input class="form-control" type="text" value="1" /></td>
-                            <td class="text-right">33,90 €</td>
-                            <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
+                            <td>{{ product.getProduct().getName() }}</td>
+                            
+                             
+                            <td>{{ product.getProduct().getSalePrice() }} €</td>
+                             
+                            <td>
+                            <form method='post' action='{{ path('edit_item', {'itemProduct': product.getProduct().getId(), 'itemCart': cart_data.getId()}) }}'>
+                                <input style='text-align:center; width: 50px;' type='number' name='quantity' value='{{ product.getQuantity() }}'>
+                                
+                                  
+                                  <button type="submit" class="btn btn-info btn-flat btn-sm">Update</button>
+                                </span>
+                           </form>
+                        </td>
+                        <td>
+                          <a href="{{ path('remove_item', {'itemProduct': product.getProduct().getId(), 'itemCart': cart_data.getId()}) }}" class="btn btn-sm btn-danger">
+                              <i class="fa fa-trash"></i> Delete
+                            </a>
+                        </td>
                         </tr>
+                         {%endfor%}
+                        
                         <tr>
-                            <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                            <td>Product Name Titi</td>
-                            <td>In stock</td>
-                            <td><input class="form-control" type="text" value="1" /></td>
-                            <td class="text-right">70,00 €</td>
-                            <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
-                        </tr> #}
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Sub-Total</td>
-                            <td class="text-right">255,90 €</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Shipping</td>
-                            <td class="text-right">6,90 €</td>
-                        </tr>
-                        <tr>
-                            <td></td>
+                             
                             <td></td>
                             <td></td>
                             <td></td>
                             <td><strong>Total</strong></td>
-                            <td class="text-right"><strong>346,90 €</strong></td>
+                            <td><strong>{{ cart_data.getTotalPrice() }} €</strong></td>
+                             
+                            
                         </tr>
+                        
                     </tbody>
+                    {%endif%}
                 </table>
             </div>
         </div>
         <div class="col mb-2">
             <div class="row">
-                <div class="col-sm-12  col-md-6">
+                <div class="col-sm-12  col-md-4">
                     <button class="btn btn-block btn-light">Continue Shopping</button>
                 </div>
-                <div class="col-sm-12 col-md-6 text-right">
-                    <button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
+                <form action='#'>
+                    <button class="btn btn-lg btn-block btn-success text-uppercase">Clear My Cart</button>
+                </form>
+                <div class="col-sm-12 col-md-4">
+                     
+                     <form method='post' action='{{url("add_order")}}'>
+                     {# the argument of csrf_token() is an arbitrary string used to generate the token #}
+    <input type="hidden" name="token" value="{{ csrf_token('add_order') }}"/>
+                      <button type="submit" class="btn btn-lg btn-block btn-success text-uppercase">Order</button>
+                   </form>
                 </div>
             </div>
         </div>
+        
     </div>
 </div>
 

@@ -14,20 +14,31 @@
              <li class="nav-item">
               <a class="nav-link" href="#">About Us</a>
             </li>
+            {%if is_granted('ROLE_ADMIN')%}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url('home')}}">Dashboard</a>
+            </li>
+            {%endif%}
             {% if is_granted('ROLE_USER') %}
               <li class="nav-item">
-                <a class="nav-link" href="{{url('user_cart')}}"><i class="fa fa-shopping-cart"></i> Cart</a>
+                <a class="nav-link" href="{{url("view_cart")}}"><i class="fa fa-shopping-cart"></i> Cart</a>
               </li>
               
-
-
-              {{ app.user.id }}
-              <li class="nav-item">
-              <a class="nav-link" href="#"><img class="nav-profile-img rounded-circle" src="/public/image/upload/{{app.user.image}}"></a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <img class="nav-profile-img rounded-circle" width="30" height="30" src="/image/upload/{{app.user.image}}"> 
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item"  href="{{url('acount',{'id':app.user.id})}}">Profile</a>
+                 
+                
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{url('app_logout')}}">Logout</a>
+              </div>
             </li>
-              <li class="nav-item">
-              <a class="nav-link" href="{{url('app_logout')}}">Logout</a>
-            </li>
+
+               
+               
             {% else %}
             <li class="nav-item">
               <a class="nav-link" href="{{url('app_login')}}">Login</a>

@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\OrderRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\OrdersRepository")
  */
-class Order
+class Orders
 {
     /**
      * @ORM\Id()
@@ -25,7 +25,7 @@ class Order
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ProductOrder", mappedBy="order_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductOrders", mappedBy="orders")
      */
     private $productOrders;
 
@@ -52,30 +52,30 @@ class Order
     }
 
     /**
-     * @return Collection|ProductOrder[]
+     * @return Collection|ProductOrders[]
      */
     public function getProductOrders(): Collection
     {
         return $this->productOrders;
     }
 
-    public function addProductOrder(ProductOrder $productOrder): self
+    public function addProductOrder(ProductOrders $productOrder): self
     {
         if (!$this->productOrders->contains($productOrder)) {
             $this->productOrders[] = $productOrder;
-            $productOrder->setOrderId($this);
+            $productOrder->setOrders($this);
         }
 
         return $this;
     }
 
-    public function removeProductOrder(ProductOrder $productOrder): self
+    public function removeProductOrder(ProductOrders $productOrder): self
     {
         if ($this->productOrders->contains($productOrder)) {
             $this->productOrders->removeElement($productOrder);
             // set the owning side to null (unless already changed)
-            if ($productOrder->getOrderId() === $this) {
-                $productOrder->setOrderId(null);
+            if ($productOrder->getOrders() === $this) {
+                $productOrder->setOrders(null);
             }
         }
 

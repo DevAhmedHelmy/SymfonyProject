@@ -36,7 +36,7 @@ class RegisterController extends AbstractController
 
 
     /**
-     * @Route("/register", name="dash_register")
+     * @Route("dash/register", name="dash_register")
      */
     public function index()
     {

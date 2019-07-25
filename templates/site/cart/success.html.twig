@@ -1,0 +1,24 @@
+{% extends 'site/layouts/base.html.twig' %}
+
+{% block body %}
+      
+ <section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Order Complete</h1>
+     </div>
+</section>
+
+
+<div class="jumbotron text-xs-center">
+  <h1 class="display-3">Thank You!</h1>
+  <p class="lead"> for use Online Store.</p>
+  <hr>
+  <p>
+    Having trouble? <a href="">Contact us</a>
+  </p>
+  <p class="lead">
+    <a class="btn btn-primary btn-sm" href="{{url('site_home')}}" role="button">Continue Shopping</a>
+  </p>
+</div>
+
+{% endblock %}

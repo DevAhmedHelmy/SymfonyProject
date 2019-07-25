@@ -54,19 +54,38 @@ class User implements UserInterface
      */
     private $password;
 
+ 
+
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="user")
+     * @ORM\OneToOne(targetEntity="App\Entity\CartShopping", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $cartShopping;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Orders", mappedBy="user")
      */
     private $orders;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\ShoppingCard", mappedBy="user", cascade={"persist", "remove"})
-     */
-    private $shoppingCard;
+   
+     
+
+   
+
+   
+
+    
+
+
+    
+
+     
+ 
 
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->shoppingCarts = new ArrayCollection();
+        $this->Orders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -204,15 +223,35 @@ class User implements UserInterface
         return $this;
     }
 
+    
+
+    public function getCartShopping(): ?CartShopping
+    {
+        return $this->cartShopping;
+    }
+
+    public function setCartShopping(?CartShopping $cartShopping): self
+    {
+        $this->cartShopping = $cartShopping;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newUser = $cartShopping === null ? null : $this;
+        if ($newUser !== $cartShopping->getUser()) {
+            $cartShopping->setUser($newUser);
+        }
+
+        return $this;
+    }
+
     /**
-     * @return Collection|Order[]
+     * @return Collection|Orders[]
      */
     public function getOrders(): Collection
     {
         return $this->orders;
     }
 
-    public function addOrder(Order $order): self
+    public function addOrder(Orders $order): self
     {
         if (!$this->orders->contains($order)) {
             $this->orders[] = $order;
@@ -222,7 +261,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeOrder(Order $order): self
+    public function removeOrder(Orders $order): self
     {
         if ($this->orders->contains($order)) {
             $this->orders->removeElement($order);
@@ -235,20 +274,16 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getShoppingCard(): ?ShoppingCard
-    {
-        return $this->shoppingCard;
-    }
+   
 
-    public function setShoppingCard(ShoppingCard $shoppingCard): self
-    {
-        $this->shoppingCard = $shoppingCard;
+    
 
-        // set the owning side of the relation if necessary
-        if ($this !== $shoppingCard->getUser()) {
-            $shoppingCard->setUser($this);
-        }
+    
+    
+    
+    
 
-        return $this;
-    }
+    
+
+    
 }

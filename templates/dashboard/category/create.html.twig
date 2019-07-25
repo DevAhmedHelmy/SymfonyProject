@@ -39,7 +39,7 @@
     <input type="hidden" name="token" value="{{ csrf_token('category_store') }}"/>
             <div class="form-group">
                 <label>Category Name</label>
-                <input class="form-control" name="name">
+                <input class="form-control" name="name" required>
                 
 
                 {# to display errors #}
@@ -56,7 +56,7 @@
 
             <div class="form-group">
                 <label>Category Description</label>
-                <textarea class="form-control" rows="3" name="description"></textarea>
+                <textarea class="form-control" rows="3" name="description" required></textarea>
 
                 {# to display errors #}
                 {% if errors is defined %}

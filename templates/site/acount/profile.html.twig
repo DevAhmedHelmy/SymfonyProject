@@ -1,0 +1,97 @@
+
+{% extends 'site/layouts/base.html.twig' %}
+ 
+
+
+    {# to include heading page #}
+    {% block heading %}
+    <div class="col-md-12"> 
+     
+        <h1 class="page-header">
+            Users
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-dashboard"></i>  <a href="{{url('home')}}">Dashboard</a>
+            </li>
+            <li class="active">
+                <i class="fa fa-users"></i> <a href="{{url('view_users')}}">Users</a> 
+            </li>
+
+            <li class="active">
+                <i class="fa fa-user"></i>  User Profile
+            </li>
+        </ol>
+    </div>
+    {% endblock %}
+
+    {# to include body #}
+
+{% block body %}
+
+
+ <style>
+    .example-wrapper { margin: 1em auto; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+
+{%if user is defined%}
+<div class="example-wrapper">
+    <div class="emp-profile">
+             
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <img src="/image/upload/{{user.getImage}}" width="300" height="300" alt=""/>
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    
+                                    <div class="row">
+                                            <div class="col-md-6">
+                                                <label>User Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{user.getFirstName}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{user.getUsername}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Phone</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{user.getPhone}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Address</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{user.address}}</p>
+                                            </div>
+                                        </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <a class="btn btn-primary" href="{{url('acount_edit',{'id':user.getId})}}"> Edit Profile</a>
+                    </div>
+                </div>
+                            
+        </div>
+</div>
+{%endif%}
+{% endblock %}

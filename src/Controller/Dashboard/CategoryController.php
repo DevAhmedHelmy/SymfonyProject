@@ -16,6 +16,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use App\Entity\Category;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+/**
+ * @IsGranted("ROLE_ADMIN")
+ */
 class CategoryController extends AbstractController
 {
 

@@ -12,7 +12,7 @@
         </h1>
         <ol class="breadcrumb">
             <li>
-                <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
+                <i class="fa fa-dashboard"></i>  <a href="{{url('home')}}">Dashboard</a>
             </li>
             <li class="active">
                 <i class="fa fa-file"></i> Products
@@ -45,17 +45,26 @@
                         <th>Product Name</th>
                         <th>Product Description</th>
                         <th>Category Name</th>
+                        <th>Stock</th>
+                        <th>Purchase Price</th>
+                        <th>Sale Price</th>
+                        <th>Profit %</th>
                         <th>Control</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for product in products  %}
                     <tr>
-                        <td>{{ product.id }}</td>
-                        <td>{{ product.name }}</td>
-                        <td>{{ product.description }}</td>
+                        <td>{{ product.getId() }}</td>
+                        <td>{{ product.getName() }}</td>
+                        <td>{{ product.getDescription() }}</td>
                         <td>{{ product.getCategoryId().getName() }}</td>
+                        <td>{{ product.getStock()}}</td>
+                        <td>{{ product.getPurchasePrice() }}</td>
+                        <td>{{ product.getSalePrice() }}</td>
+                        <td>{{ product.getProfit() }} %</td>
                         
+                         
                          <td>
 
                             <a href="{{path('product_edit', {'id':product.id} )}}" class="btn btn-primary" 

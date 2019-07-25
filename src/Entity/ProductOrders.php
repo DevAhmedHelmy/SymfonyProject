@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ProductOrderRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ProductOrdersRepository")
  */
-class ProductOrder
+class ProductOrders
 {
     /**
      * @ORM\Id()
@@ -17,16 +17,16 @@ class ProductOrder
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Order", inversedBy="productOrders")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $order_id;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="productOrders")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $product_id;
+    private $product;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Orders", inversedBy="productOrders")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $orders;
 
     /**
      * @ORM\Column(type="float")
@@ -43,26 +43,26 @@ class ProductOrder
         return $this->id;
     }
 
-    public function getOrderId(): ?Order
+    public function getProduct(): ?Product
     {
-        return $this->order_id;
+        return $this->product;
     }
 
-    public function setOrderId(?Order $order_id): self
+    public function setProduct(?Product $product): self
     {
-        $this->order_id = $order_id;
+        $this->product = $product;
 
         return $this;
     }
 
-    public function getProductId(): ?Product
+    public function getOrders(): ?Orders
     {
-        return $this->product_id;
+        return $this->orders;
     }
 
-    public function setProductId(?Product $product_id): self
+    public function setOrders(?Orders $orders): self
     {
-        $this->product_id = $product_id;
+        $this->orders = $orders;
 
         return $this;
     }

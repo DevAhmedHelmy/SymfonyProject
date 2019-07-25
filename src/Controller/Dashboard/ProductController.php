@@ -19,6 +19,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Gedmo\Sluggable\Util\Urlizer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+/**
+ * @IsGranted("ROLE_ADMIN")
+ */
 class ProductController extends AbstractController
 {
     private $validator;
@@ -167,7 +171,7 @@ class ProductController extends AbstractController
         
         $errors = $this->validator->validate($product);
         if (count($errors) > 0) {
-            return $this->render('/dashboard/product/create.html.twig',['errors' => $errors]);
+            return $this->render('/dashboard/product/edit.html.twig',['errors' => $errors]);
         }
         
        

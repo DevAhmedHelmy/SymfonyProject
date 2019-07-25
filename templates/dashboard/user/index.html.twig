@@ -7,15 +7,15 @@
     <div class="col-md-12"> 
      
         <h1 class="page-header">
-            Products
-            <small>Subheading</small>
+            Users
+            <small></small>
         </h1>
         <ol class="breadcrumb">
             <li>
-                <i class="fa fa-dashboard"></i>  <a href="{{url('home')}}">Dashboard</a>
+                <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
             </li>
             <li class="active">
-                <i class="fa fa-file"></i> Categories
+                <i class="fa fa-users"></i> Users
             </li>
         </ol>
     </div>
@@ -29,41 +29,39 @@
 {# to include body #}
 
 {% block body %}
-<div class="col-md-12">
  
-    <a class="btn btn-primary" href="{{url('category_create')}}">
-    <i class="fa fa-plus"></i> Add Category</a>
-
-</div>
 <div class="col-md-12">
-    <h2>Categories Table</h2>
+    <h2>Users Table</h2>
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Category Name</th>
-                        <th>Category Description</th>
-                        <th>control</th>
+                        {# <th>#</th> #}
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Control</th>
                     </tr>
                 </thead>
                 <tbody>
-                  
-                
-                {% for category in categories  %}
+                    {% for user in users  %}
                     <tr>
-                        <td>{{ category.id }}</td>
-                        <td>{{ category.name }}</td>
-                        <td>{{ category.description }}</td>
+                        {# <td><a href="{{url('view_users',{'id': user.id}) }}" ></a></td> #}
+                        <td><a href="{{path('profile',{'id': user.id}) }}" >{{ user.getFirstName() }}</a></td>
+                        <td>{{ user.getUsername() }}</td>
+                        <td>{{ user.getAddress() }}</td>
+                        <td>{{ user.getPhone() }}</td>
+                        
                          <td>
 
-                            <a href="{{path('category_edit', {'id':category.id} )}}" class="btn btn-primary" 
+                            <a href="{{path('user_edit', {'id':user.id} )}}" class="btn btn-primary" 
                                 data-toggle="tooltip" data-placement="top" title="@lang('site.edit')">
                                 <i class="fa fa-edit fa-1x"></i>
                             </a>
                             
                         
-                            <a href="{{path('category_delete', {'id':category.id} )}}"class="btn btn-danger" 
+                            <a href="{{path('user_delete', {'id':user.id} )}}"class="btn btn-danger" 
                                 onclick="if(!confirm('Are You Sure Deleting')) return false;" data-toggle="tooltip" data-placement="top" 
                                 title="Are You Sure Deleting">
                                 <i class="fa fa-trash-o fa-1x"></i>
@@ -72,10 +70,11 @@
                         </td>
                     </tr>
                      {% endfor %}
+                     
                 </tbody>
             </table>
         </div>
     </div>
-        
+
 
 {% endblock %}

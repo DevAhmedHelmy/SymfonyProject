@@ -61,20 +61,36 @@ class Product
      */
     private $category_id;
 
+  
+
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ProductOrder", mappedBy="product_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\CartItems", mappedBy="product")
+     */
+    private $cartItems;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductOrders", mappedBy="product")
      */
     private $productOrders;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ShoppingCardItem", inversedBy="product")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $shoppingCardItem;
+    
+
+    
+   
+    
+   
+
+     
+
+  
 
     public function __construct()
     {
+       
+        $this->cartItems = new ArrayCollection();
         $this->productOrders = new ArrayCollection();
+       
+         
     }
 
   
@@ -169,53 +185,78 @@ class Product
 
         return $this;
     }
-
-    /**
-     * @return Collection|ProductOrder[]
-     */
-    public function getProductOrders(): Collection
+    public function getProfit()
     {
-        return $this->productOrders;
+        return (($this->getSalePrice() - $this->getPurchasePrice()) /$this->getPurchasePrice()) * 100 ;
     }
 
-    public function addProductOrder(ProductOrder $productOrder): self
+    /**
+     * @return Collection|CartItems[]
+     */
+    public function getCartItems(): Collection
     {
-        if (!$this->productOrders->contains($productOrder)) {
-            $this->productOrders[] = $productOrder;
-            $productOrder->setProductId($this);
+        return $this->cartItems;
+    }
+
+    public function addCartItem(CartItems $cartItem): self
+    {
+        if (!$this->cartItems->contains($cartItem)) {
+            $this->cartItems[] = $cartItem;
+            $cartItem->setProduct($this);
         }
 
         return $this;
     }
 
-    public function removeProductOrder(ProductOrder $productOrder): self
+    public function removeCartItem(CartItems $cartItem): self
     {
-        if ($this->productOrders->contains($productOrder)) {
-            $this->productOrders->removeElement($productOrder);
+        if ($this->cartItems->contains($cartItem)) {
+            $this->cartItems->removeElement($cartItem);
             // set the owning side to null (unless already changed)
-            if ($productOrder->getProductId() === $this) {
-                $productOrder->setProductId(null);
+            if ($cartItem->getProduct() === $this) {
+                $cartItem->setProduct(null);
             }
         }
 
         return $this;
     }
 
-    public function getShoppingCardItem(): ?ShoppingCardItem
+    /**
+     * @return Collection|ProductOrders[]
+     */
+    public function getProductOrders(): Collection
     {
-        return $this->shoppingCardItem;
+        return $this->productOrders;
     }
 
-    public function setShoppingCardItem(?ShoppingCardItem $shoppingCardItem): self
+    public function addProductOrder(ProductOrders $productOrder): self
     {
-        $this->shoppingCardItem = $shoppingCardItem;
+        if (!$this->productOrders->contains($productOrder)) {
+            $this->productOrders[] = $productOrder;
+            $productOrder->setProduct($this);
+        }
 
         return $this;
     }
 
-   
-  
-    
+    public function removeProductOrder(ProductOrders $productOrder): self
+    {
+        if ($this->productOrders->contains($productOrder)) {
+            $this->productOrders->removeElement($productOrder);
+            // set the owning side to null (unless already changed)
+            if ($productOrder->getProduct() === $this) {
+                $productOrder->setProduct(null);
+            }
+        }
 
+        return $this;
+    }
+
+
+    
+ 
+ 
+
+     
    
 }
