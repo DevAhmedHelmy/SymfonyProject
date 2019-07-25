@@ -12,7 +12,10 @@
               <a class="nav-link" href="{{url('site_home')}}">Home</a>
             </li>
              <li class="nav-item">
-              <a class="nav-link" href="#">About Us</a>
+              <a class="nav-link" href="{{url('about')}}">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url('contact')}}">Contact Us</a>
             </li>
             {%if is_granted('ROLE_ADMIN')%}
             <li class="nav-item">

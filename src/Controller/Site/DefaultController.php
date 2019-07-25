@@ -16,7 +16,7 @@ class DefaultController extends AbstractController
     */
     public function index()
     {
-        // $this->denyAccessUnlessGranted('ROLE_ADMIN');
+    
         $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
     
         return $this->render('/site/home/index.html.twig',['products' => $products]);

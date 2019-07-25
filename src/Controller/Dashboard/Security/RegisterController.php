@@ -75,13 +75,13 @@ class RegisterController extends AbstractController
         $user->setPhone($request->request->get('phone'));
         // $user->setImage($request->request->get('image'));
         $user->setAddress($request->request->get('address'));
-
+        $user->setRoles(['ROLE_ADMIN']);
 
 
     
         /** @var UploadedFile $uploadedFile */
         $uploadedFile = $request->files->get('image');
-        $destination = $this->getParameter('kernel.project_dir').'/public/upload';
+        $destination = $this->getParameter('kernel.project_dir').'/public/image/upload';
         $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
         $newFilename = Urlizer::urlize($originalFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
         $uploadedFile->move(
@@ -99,6 +99,6 @@ class RegisterController extends AbstractController
        }
        $em->persist($user);
        $em->flush();
-       return $this->redirectToRoute('home');
+       return $this->redirectToRoute('dash_login');
    }
 }
